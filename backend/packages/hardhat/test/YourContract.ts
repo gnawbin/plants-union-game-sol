@@ -3,7 +3,7 @@ import { ethers } from "hardhat";
 import { YourContract } from "../typechain-types";
 
 describe("YourContract", function () {
-  // We define a fixture to reuse the same setup in every test.
+  // We define a fixture to reuse the same setup in everyd test.
 
   let yourContract: YourContract;
   before(async () => {
