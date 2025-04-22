@@ -4,7 +4,7 @@ coverage
 coverage.json
 typechain
 typechain-types
-
+install-state.gz
 # Hardhat files
 cache
 artifacts
