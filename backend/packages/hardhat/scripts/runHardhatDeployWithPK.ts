@@ -34,8 +34,10 @@ async function main() {
   }
   //const  PRIVATE_KEY_PASSWORD=process.env.DEPLOYER_PRIVATE_KEY_PASSWORD;
 
-  //const pass = await password({ message: "Enter password to decrypt private key:" });
-  const pass = await password({ message: process.env.DEPLOYER_PRIVATE_KEY_PASSWORD || "Enter password to decrypt private key:" });
+  const pass = await password({ message: "Enter password to decrypt private key:" });
+ //const pass = process.env.DEPLOYER_PRIVATE_KEY_PASSWORD || ""; 
+  console.error(pass);
+  console.error(encryptedKey);
   try {
     const wallet = await Wallet.fromEncryptedJson(encryptedKey, pass);
     process.env.__RUNTIME_DEPLOYER_PRIVATE_KEY = wallet.privateKey;
