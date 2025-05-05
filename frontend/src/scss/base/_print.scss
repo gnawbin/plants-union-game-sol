@@ -2,6 +2,8 @@
  * Print Stylesheet
 */
 
+@use './vars' as *;
+
 @media print {
   @page { margin: 1cm; }
 

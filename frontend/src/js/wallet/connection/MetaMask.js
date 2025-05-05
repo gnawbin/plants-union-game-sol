@@ -1,6 +1,19 @@
 import AbstractConnector from "./AbstractConnector";
 import { parseChainId } from "../parseChainId";
 
+// Sepolia测试网参数
+const SEPOLIA_CHAIN_PARAMS = {
+  chainId: '0xaa36a7',
+  chainName: 'Sepolia Test Network',
+  nativeCurrency: {
+    name: 'SepoliaETH',
+    symbol: 'ETH',
+    decimals: 18
+  },
+  rpcUrls: ['https://sepolia.infura.io/v2/EDWWrtImhDPn6_-9SdRjAf9b9upagseB'], // TODO: 替换为你自己的RPC
+  blockExplorerUrls: ['https://sepolia.etherscan.io']
+};
+
 export class MetaMask extends AbstractConnector {
 
   constructor() {
@@ -38,9 +51,16 @@ export class MetaMask extends AbstractConnector {
           this.provider.request({ method: 'eth_requestAccounts' }),
         ]).then(([chainId, accounts]) => {
           const receivedChainId = parseChainId(chainId);
-          const desiredChainId = typeof desiredChainIdOrChainParameters === 'number'
+          let desiredChainId = typeof desiredChainIdOrChainParameters === 'number'
             ? desiredChainIdOrChainParameters
             : desiredChainIdOrChainParameters?.chainId;
+
+          // 如果传入的是数字且为Sepolia，则自动补全参数
+          let chainParams = desiredChainIdOrChainParameters;
+          if (typeof desiredChainIdOrChainParameters === 'number' && desiredChainIdOrChainParameters === 11155111) {
+            chainParams = SEPOLIA_CHAIN_PARAMS;
+            desiredChainId = 11155111;
+          }
 
           if (!desiredChainId || receivedChainId === desiredChainId) {
             this.accounts = accounts;
@@ -57,12 +77,12 @@ export class MetaMask extends AbstractConnector {
               chainId: desiredChainIdHex,
             }],
           }).catch((error) => {
-            if (error.code === 4902 && typeof desiredChainIdOrChainParameters !== 'number') {
+            if (error.code === 4902 && typeof chainParams !== 'number') {
               return this.provider?.request({
                 method: 'wallet_addEthereumChain',
                 params: [
                   {
-                    ...desiredChainIdOrChainParameters,
+                    ...chainParams,
                     chainId: desiredChainIdHex,
                   },
                 ],

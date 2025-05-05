@@ -3,7 +3,8 @@ import { MetaMask } from "./connection/MetaMask";
 import { ethers } from "ethers";
 import PlantsUnionABI from "./abis/PlantsUnion.json";
 
-const GOERLI_CONSTRUCT_ADDRESS = '0x5146eE6c8D420a09f6f81F36392474dB1ef6AB35';
+// TODO: 请将此地址替换为你在Sepolia部署的合约地址
+const SEPOLIA_CONTRACT_ADDRESS = '0x64F956EbB112E1120232C7FE1B5589362912C4dd';
 
 const walletDict = {
   [ConnectionType.INJECTED]: new MetaMask(),
@@ -26,5 +27,5 @@ export const getSigner = async (provider, account) => {
 }
 
 export const getPlantsUnionContract = async (provider, account) => {
-  return await getContract(GOERLI_CONSTRUCT_ADDRESS, PlantsUnionABI, provider, account);
+  return await getContract(SEPOLIA_CONTRACT_ADDRESS, PlantsUnionABI, provider, account);
 }

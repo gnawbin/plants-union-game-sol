@@ -91,7 +91,7 @@ export const HUNT_TYPE = {
 // ---- 支持的链 --------------
 export const CHAIN_ID = {
   MAINNET: 1,
-  GOERLI: 5,
+  SEPOLIA: 11155111,
 }
 
-export const SUPPORTED_CHAINS = [CHAIN_ID.GOERLI];
+export const SUPPORTED_CHAINS = [CHAIN_ID.SEPOLIA];

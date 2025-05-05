@@ -41,12 +41,11 @@ export default class FriendView extends View {
 
   initUi() {
     this.viewComponent.initUi(PKG_NAME_FRIEND, 'main');
-    console.log(this.viewComponent, this.viewComponent.ui)
     this.viewComponent.ui.width = this.gameView.viewComponent.renderer.width;
     this.viewComponent.ui.height = this.gameView.viewComponent.renderer.height;
-    // this.viewComponent.ui.
 
     this.viewComponent.switchBtn.on(fgui.InteractiveEvents.Down, this.onSwitchFriend, this);
+
 
     const uiLayer4 = this.gameView.viewComponent.uiLayer4;
     uiLayer4.addChild(this.viewComponent);
@@ -57,5 +56,10 @@ export default class FriendView extends View {
     const c1 = this.viewComponent.$getController('c1');
     c1.setSelectedIndex(c1.selectedIndex === 0 ? 1 : 0);
 
+  }
+
+  // 土地点击事件处理
+  onLandClick(index) {
+    alert(`点击了第${index}块地`);
   }
 }

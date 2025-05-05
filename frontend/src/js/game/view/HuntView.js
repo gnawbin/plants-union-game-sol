@@ -60,6 +60,18 @@ export default class HuntView extends View {
 
     this.viewComponent.backBtn.on(fgui.InteractiveEvents.Down, this.onBackToHall, this);
 
+    this.lands = [];
+    this.landsStatus = [];
+    for (let i = 0; i < 12; i++) {
+      const land = this.viewComponent.$getChild('hole' + i);
+      console.log(`hole${i}:`, land);
+      if (land) {
+        land.on(fgui.InteractiveEvents.Down, () => this.onLandClick(i), this);
+        this.lands.push(land);
+        this.landsStatus.push(0);
+      }
+    }
+
     const uiLayer4 = this.gameView.viewComponent.uiLayer4;
     uiLayer4.addChild(this.viewComponent);
 
@@ -80,5 +92,19 @@ export default class HuntView extends View {
     this.sendEvent(CMD_REMOVE_VIEW, {viewClazz: HuntView});
 
     this.sendEvent(CMD_REGISTER_VIEW, {viewClazz: HallView, vcClazz: HallVc});
+  }
+
+  onLandClick(index) {
+    alert(`点击了第${index}块地`);
+    const landStatus = this.landsStatus[index];
+    if (landStatus === 0) {
+      this.landsStatus[index] = 1;
+      console.log(`第${index}块地：种植`);
+    } else if (landStatus === 2) {
+      this.landsStatus[index] = 0;
+      console.log(`第${index}块地：收获`);
+    } else {
+      console.log(`第${index}块地：成长中，暂不能收获`);
+    }
   }
 }
