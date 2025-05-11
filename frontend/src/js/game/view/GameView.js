@@ -76,6 +76,7 @@ export default class GameView extends View {
 
                   // 根据时间和季节显示不同的背景，这个背景在创建角色和大厅使用
                   const time = (new Date()).getHours();
+                  console.log(time);
                   const bgUrl = time >= 19 ? 'hallbg2' : 'hallbg0';
                   this.sendEvent(TYPE_SHOW_BACKGROUND, {url: `images/bg/${bgUrl}.jpg`});
 
